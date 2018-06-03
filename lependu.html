@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<meta charset="utf-8"> <!-- Encodage en utf-8 pour les problemes d'accents -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Le Pendu</title>
+
+	<script src="js/jquery.js"></script>  <!--Jquery-->
+
+
+
+</head>
+
+<script>
+
+	/* je declare les mots à trouver */
+	var mots = ["Coccyx","","symphony","Methylisothiazolinone","zizanie","pouloulou","escroc","perpetuellement","hippopotomonstrosesquippedaliophobie"];
+
+	/* choix au hasard d'un mot dans le tableau avec la fonction Math.floor(Math.Random())*/
+	var motSecret = mots[Math.floor(Math.random()* mots.length)]; 
+
+	/*Creation d'un tableau vide */
+
+	var tabReponses = [] ;
+	/*boucle de Creation d'un tiret a la longueur du mot a trouver  */
+	for (var i = 0; i < motSecret.length; i++){
+		tabReponses[i] = "_";
+	}
+
+	/* nb de lettres restantes a trouver */
+	var nbLettresManquantes = motSecret.length;
+
+	/* nb d'erreurs*/
+	var erreursLettre = 3;
+
+
+
+	/*tant que le nb de lettres manquantess est superieur à 0 */
+	while ((nbLettresManquantes > 0)&& erreursLettre > 0){
+
+		
+		/*espace entre les lettres */
+
+		alert(tabReponses.join(' '));
+
+		/* recuperation de la reponse du joueur */
+		/*les donnees saisie en majuscules sont convertit en minuscules*/
+
+		var reponse = prompt("Trouve une lettre ou bien barre toi. ").toLowerCase();
+
+
+
+
+		/* si il appuie sur annuler la boucle est bouclé*/
+
+		if(reponse === null) {
+			break;
+
+			/* si on mets pas de lettre ou trop de lettres*/
+
+		} else if (reponse.length !== 1) {
+			alert("Tu ne connais pas la règle du pendu WTF??????!!!!!");
+		}
+
+
+
+		/* indexOf va chercher si la lettre saisie est dans le tableau motsecret*/
+
+		else if(motSecret.indexOf(reponse)== -1){
+			
+			erreursLettre--;
+			alert("Vous n'avez plus que " + erreursLettre + " essais");
+
+			if (erreursLettre < 1){
+				alert("Il est mort pendu a cause de toi, tu as du sang sur les mains ASSASSIN!!!!!");
+				break;
+			}
+
+} //fin du else if
+
+
+
+
+else{
+
+	/* si la lettre saisie par l'utilisateur correspond a une lettre du mot secret on l'ecrit dans le tableau de reponse, puis on decrement ,n de lettres  a trouver restant */
+	for (var j = 0; j < motSecret.length; j++){
+		if((motSecret[j]) === reponse) {
+			tabReponses[j] = reponse;
+			nbLettresManquantes--;
+		}
+   } // fin du for
+
+ } // fin du else
+
+} //fin de la boucle
+
+
+if((nbLettresManquantes > 0)&& erreursLettre > 0){
+	alert(tabReponses.join(" "));
+	alert("Felicitations, tu as gagne, ct pas trop tot, le mot etait: "+motSecret);
+}
+
+else
+	alert("Recommence tu es trop nul");
+
+
+</script>
